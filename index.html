@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Practice & Quiz</title>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { animation: blob 7s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+        
+        .quiz-option-transition {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- Icons ---
+        const Volume2 = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+        );
+        const Home = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        );
+        const BookOpen = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+        );
+        const X = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        );
+        const Brain = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9.5 2A5 5 0 0 1 12 10a5 5 0 0 1 2.5-8"/><path d="M12 10v4"/><path d="M8 14a4 4 0 1 0 8 0"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>
+        );
+
+        // --- Data ---
+        const unit5Data = [
+          { id: 1, word: "anecdote", meaning: "a short and interesting story", example: "The teacher shared a funny anecdote from her childhood.", synonyms: ["story", "tale"], antonyms: ["—"] },
+          { id: 2, word: "consolidate", meaning: "to bring together or combine", example: "The school decided to consolidate two classes.", synonyms: ["combine", "unite"], antonyms: ["separate", "divide"] },
+          { id: 3, word: "counterfeit", meaning: "fake or not real", example: "The police found counterfeit money.", synonyms: ["fake", "imitation"], antonyms: ["genuine", "real"] },
+          { id: 4, word: "docile", meaning: "easy to control or gentle", example: "The docile dog followed its owner quietly.", synonyms: ["gentle", "obedient"], antonyms: ["wild", "stubborn"] },
+          { id: 5, word: "dominate", meaning: "to control or rule", example: "The stronger team dominated the match.", synonyms: ["control", "rule"], antonyms: ["obey", "submit"] },
+          { id: 6, word: "entreat", meaning: "to beg or ask seriously", example: "She entreated her parents to let her go.", synonyms: ["beg", "plead"], antonyms: ["demand", "refuse"] },
+          { id: 7, word: "fallible", meaning: "capable of making mistakes", example: "All humans are fallible.", synonyms: ["imperfect", "mistaken"], antonyms: ["perfect", "flawless"] },
+          { id: 8, word: "fickle", meaning: "changing opinions often", example: "The weather here is fickle.", synonyms: ["changeable", "unpredictable"], antonyms: ["loyal", "steady"] },
+          { id: 9, word: "fugitive", meaning: "a person who is running away", example: "The police searched for the fugitive.", synonyms: ["runaway", "escapee"], antonyms: ["captive", "prisoner"] },
+          { id: 10, word: "grimy", meaning: "dirty or covered with dirt", example: "His hands were grimy after playing outside.", synonyms: ["dirty", "filthy"], antonyms: ["clean", "spotless"] },
+          { id: 11, word: "iota", meaning: "a very small amount", example: "There wasn’t an iota of truth in the rumor.", synonyms: ["bit", "speck"], antonyms: ["lot", "plenty"] },
+          { id: 12, word: "maul", meaning: "to attack roughly", example: "The dog mauled the pillow while playing.", synonyms: ["attack", "tear"], antonyms: ["protect", "guard"] },
+          { id: 13, word: "potential", meaning: "possible ability or chance", example: "She has the potential to become a leader.", synonyms: ["ability", "possibility"], antonyms: ["impossibility", "weakness"] },
+          { id: 14, word: "radiant", meaning: "shining or full of joy", example: "Her face looked radiant after winning.", synonyms: ["glowing", "bright"], antonyms: ["dull", "gloomy"] },
+          { id: 15, word: "rural", meaning: "relating to the countryside", example: "He lives in a rural village.", synonyms: ["countryside", "farming"], antonyms: ["urban", "city"] },
+          { id: 16, word: "substantial", meaning: "large or important", example: "The project needs a substantial effort.", synonyms: ["large", "significant"], antonyms: ["small", "minor"] },
+          { id: 17, word: "tactful", meaning: "careful not to hurt others’ feelings", example: "She gave tactful advice to her friend.", synonyms: ["polite", "considerate"], antonyms: ["rude", "blunt"] },
+          { id: 18, word: "tamper", meaning: "to interfere in a harmful way", example: "Do not tamper with school equipment.", synonyms: ["interfere", "meddle"], antonyms: ["protect", "preserve"] },
+          { id: 19, word: "ultimate", meaning: "final or most important", example: "His ultimate goal is success.", synonyms: ["final", "main"], antonyms: ["first", "initial"] },
+          { id: 20, word: "uncertainty", meaning: "doubt or not being sure", example: "There was uncertainty about the exam date.", synonyms: ["doubt", "confusion"], antonyms: ["certainty", "confidence"] },
+        ];
+
+        const unit6Data = [
+          { id: 1, word: "anonymous", meaning: "without a known name", example: "The letter was sent by an anonymous writer.", synonyms: ["unnamed", "unknown"], antonyms: ["known", "identified"] },
+          { id: 2, word: "browse", meaning: "to look through casually", example: "She likes to browse books in the library.", synonyms: ["look through", "skim"], antonyms: ["study", "examine"] },
+          { id: 3, word: "dupe", meaning: "to trick or fool", example: "He was duped into believing the lie.", synonyms: ["trick", "deceive"], antonyms: ["inform", "enlighten"] },
+          { id: 4, word: "dynamic", meaning: "full of energy and activity", example: "The coach is very dynamic and motivating.", synonyms: ["energetic", "active"], antonyms: ["lazy", "dull"] },
+          { id: 5, word: "eradicate", meaning: "to remove completely", example: "The program helped eradicate the disease.", synonyms: ["remove", "destroy"], antonyms: ["create", "spread"] },
+          { id: 6, word: "frustrate", meaning: "to make someone feel upset or annoyed", example: "The broken printer began to frustrate students.", synonyms: ["annoy", "upset"], antonyms: ["please", "satisfy"] },
+          { id: 7, word: "grim", meaning: "serious or unpleasant", example: "The news about the storm was grim.", synonyms: ["serious", "harsh"], antonyms: ["cheerful", "pleasant"] },
+          { id: 8, word: "inimitable", meaning: "impossible to copy", example: "Her singing style is inimitable.", synonyms: ["unique", "unmatched"], antonyms: ["ordinary", "common"] },
+          { id: 9, word: "makeshift", meaning: "temporary and not perfect", example: "They used a makeshift table during the event.", synonyms: ["temporary", "improvised"], antonyms: ["permanent", "proper"] },
+          { id: 10, word: "marginal", meaning: "small or not very important", example: "The team won by a marginal difference.", synonyms: ["slight", "minor"], antonyms: ["major", "significant"] },
+          { id: 11, word: "pending", meaning: "waiting to be decided", example: "The result is still pending.", synonyms: ["waiting", "undecided"], antonyms: ["decided", "finished"] },
+          { id: 12, word: "prescribe", meaning: "to order or recommend medicine", example: "The doctor prescribed rest and medicine.", synonyms: ["recommend", "order"], antonyms: ["forbid", "cancel"] },
+          { id: 13, word: "preview", meaning: "to see something before it happens", example: "We watched a preview of the movie.", synonyms: ["glimpse", "preview"], antonyms: ["review", "recap"] },
+          { id: 14, word: "prominent", meaning: "easily noticed or important", example: "He is a prominent member of the team. ", synonyms: ["noticeable", "important"], antonyms: ["unimportant", "hidden"] },
+          { id: 15, word: "quaint", meaning: "attractively old-fashioned", example: "The village has quaint houses.", synonyms: ["charming", "old-fashioned"], antonyms: ["modern", "plain"] },
+          { id: 16, word: "reluctant", meaning: "unwilling or hesitant", example: "She was reluctant to speak in public.", synonyms: ["hesitant", "unwilling"], antonyms: ["eager", "willing"] },
+          { id: 17, word: "scrimp", meaning: "to save money by spending very little", example: "He scrimped to buy a new bicycle.", synonyms: ["save", "economize"], antonyms: ["waste", "spend freely"] },
+          { id: 18, word: "snare", meaning: "a trap", example: "The hunter set a snare in the forest.", synonyms: ["trap", "net"], antonyms: ["release", "free"] },
+          { id: 19, word: "utmost", meaning: "greatest or highest", example: "She tried her utmost to succeed.", synonyms: ["greatest", "maximum"], antonyms: ["least", "minimum"] },
+          { id: 20, word: "vengeance", meaning: "revenge for a wrong done", example: "He wanted vengeance after being treated unfairly.", synonyms: ["revenge", "payback"], antonyms: ["forgiveness", "mercy"] },
+        ];
+
+        // --- Helper Components ---
+        const HighlightedSentence = ({ sentence, targetWord }) => {
+            const parts = sentence.split(' ');
+            return (
+                <p className="text-gray-700 italic">
+                {parts.map((part, index) => {
+                    const cleanPart = part.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "");
+                    const cleanTarget = targetWord.toLowerCase();
+                    const isTarget = cleanPart.includes(cleanTarget) || cleanTarget.includes(part.toLowerCase()); 
+                    return (
+                        <span key={index} className={isTarget ? "font-bold text-indigo-600" : ""}>{part} </span>
+                    );
+                })}
+                </p>
+            );
+        };
+
+        const CardContent = ({ item, unitNumber, playAudio }) => {
+            const formatNumber = (num) => num.toString().padStart(2, '0');
+            const audioId = `${unitNumber}${formatNumber(item.id)}.mp3`;
+            const isUnit5 = unitNumber === 5;
+            const numberBg = isUnit5 ? "bg-indigo-600" : "bg-pink-600";
+            return (
+                <React.Fragment>
+                    <div className="flex justify-between items-start mb-4">
+                        <div className="flex items-center space-x-3">
+                            <span className={`flex items-center justify-center w-12 h-12 rounded-full ${numberBg} text-white font-mono text-lg font-bold shadow-md`}>
+                                {formatNumber(item.id)}
+                            </span>
+                            <h3 className="text-2xl font-extrabold text-gray-800 tracking-tight">{item.word}</h3>
+                        </div>
+                        <button onClick={(e) => { e.stopPropagation(); playAudio(audioId); }} className="p-2 rounded-full bg-gray-50 text-gray-400 hover:bg-indigo-600 hover:text-white transition-all">
+                            <Volume2 size={24} />
+                        </button>
+                    </div>
+                    <div className="space-y-4">
+                        <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                            <h4 className="text-xs font-bold text-blue-500 uppercase mb-1">Meaning</h4>
+                            <p className="text-gray-700 font-medium">{item.meaning}</p>
+                        </div>
+                        <div>
+                            <h4 className="text-xs font-bold text-gray-400 uppercase mb-1">Example</h4>
+                            <HighlightedSentence sentence={item.example} targetWord={item.word} />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <h4 className="text-xs font-bold text-green-600 uppercase mb-1">Synonyms</h4>
+                                <ul className="text-sm text-gray-600">{item.synonyms.map((s, i) => <li key={i}>• {s}</li>)}</ul>
+                            </div>
+                            <div>
+                                <h4 className="text-xs font-bold text-red-500 uppercase mb-1">Antonyms</h4>
+                                <ul className="text-sm text-gray-600">{item.antonyms.map((a, i) => <li key={i}>• {a}</li>)}</ul>
+                            </div>
+                        </div>
+                    </div>
+                </React.Fragment>
+            );
+        };
+
+        // --- Quiz Component ---
+        const QuizMode = ({ unitData, unitNum, onHome }) => {
+            const [questions, setQuestions] = React.useState([]);
+            const [currentIndex, setCurrentIndex] = React.useState(0);
+            const [score, setScore] = React.useState(0);
+            const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+            const [isFinished, setIsFinished] = React.useState(false);
+
+            React.useEffect(() => {
+                const shuffled = [...unitData].sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, 10).map(item => {
+                    const distractors = unitData
+                        .filter(d => d.id !== item.id)
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 3);
+                    const options = [...distractors, item].sort(() => 0.5 - Math.random());
+                    return { ...item, options };
+                });
+                setQuestions(selected);
+            }, [unitData]);
+
+            const handleAnswer = (option) => {
+                if (selectedAnswer) return;
+                setSelectedAnswer(option);
+                if (option.id === questions[currentIndex].id) {
+                    setScore(score + 1);
+                }
+            };
+
+            const nextQuestion = () => {
+                if (currentIndex < questions.length - 1) {
+                    setCurrentIndex(currentIndex + 1);
+                    setSelectedAnswer(null);
+                } else {
+                    setIsFinished(true);
+                }
+            };
+
+            if (questions.length === 0) return null;
+
+            if (isFinished) {
+                return (
+                    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+                        <div className="bg-white rounded-3xl p-10 shadow-2xl max-w-md w-full text-center">
+                            <div className="text-6xl mb-4">🎉</div>
+                            <h2 className="text-3xl font-black text-gray-800 mb-2">Quiz Complete!</h2>
+                            <p className="text-gray-500 mb-6 font-medium">You scored <span className="text-indigo-600 font-bold">{score}</span> out of {questions.length}</p>
+                            <div className="flex flex-col gap-3">
+                                <button onClick={() => { setIsFinished(false); setCurrentIndex(0); setScore(0); setSelectedAnswer(null); }} className="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all">Try Again</button>
+                                <button onClick={onHome} className="w-full py-3 bg-gray-100 text-gray-600 rounded-xl font-bold hover:bg-gray-200 transition-all">Back to Home</button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            const current = questions[currentIndex];
+
+            return (
+                <div className="min-h-screen bg-slate-50 flex flex-col">
+                    <div className="bg-white border-b border-gray-200 p-4 sticky top-0 z-40">
+                        <div className="max-w-2xl mx-auto flex justify-between items-center">
+                            <button onClick={onHome} className="p-2 text-gray-400 hover:text-gray-600"><Home size={24} /></button>
+                            <div className="flex-grow mx-4">
+                                <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                                    <div className="h-full bg-indigo-600 transition-all duration-300" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}></div>
+                                </div>
+                            </div>
+                            <span className="font-bold text-gray-400">{currentIndex + 1}/{questions.length}</span>
+                        </div>
+                    </div>
+
+                    <div className="flex-grow flex items-center justify-center p-6">
+                        <div className="max-w-2xl w-full">
+                            <div className="bg-white rounded-3xl p-8 shadow-xl mb-6">
+                                <h2 className="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-4">Question {currentIndex + 1}</h2>
+                                <p className="text-2xl font-bold text-gray-800 leading-tight mb-8">What is the meaning of "<span className="text-indigo-600">{current.word}</span>"?</p>
+                                
+                                <div className="space-y-3">
+                                    {current.options.map((option) => {
+                                        let bg = "bg-white border-gray-200 hover:border-indigo-400";
+                                        if (selectedAnswer) {
+                                            if (option.id === current.id) bg = "bg-green-50 border-green-500 text-green-700";
+                                            else if (selectedAnswer.id === option.id) bg = "bg-red-50 border-red-500 text-red-700 opacity-80";
+                                            else bg = "bg-white border-gray-100 opacity-40";
+                                        }
+                                        return (
+                                            <button 
+                                                key={option.id}
+                                                disabled={!!selectedAnswer}
+                                                onClick={() => handleAnswer(option)}
+                                                className={`w-full p-5 text-left rounded-2xl border-2 font-medium quiz-option-transition ${bg}`}
+                                            >
+                                                {option.meaning}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            {selectedAnswer && (
+                                <button 
+                                    onClick={nextQuestion}
+                                    className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-black text-lg shadow-xl shadow-indigo-200 hover:bg-indigo-700 animate-in fade-in slide-in-from-bottom-2 duration-300"
+                                >
+                                    {currentIndex === questions.length - 1 ? "Finish Quiz" : "Next Question →"}
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Main App Component ---
+        const VocabularyApp = () => {
+            const [currentPage, setCurrentPage] = React.useState('home');
+            const [expandedCard, setExpandedCard] = React.useState(null);
+            const activeAudioRef = React.useRef(null);
+
+            const playAudio = (filename) => {
+                // If there's an active sound, stop and reset it
+                if (activeAudioRef.current) {
+                    activeAudioRef.current.pause();
+                    activeAudioRef.current.currentTime = 0;
+                }
+                
+                // Create and store new sound
+                const audio = new Audio(filename);
+                activeAudioRef.current = audio;
+                
+                audio.play().catch(e => {
+                    console.log("Audio file not found or playback blocked:", filename);
+                });
+
+                // Clear reference when finished
+                audio.onended = () => {
+                    if (activeAudioRef.current === audio) {
+                        activeAudioRef.current = null;
+                    }
+                };
+            };
+
+            const renderHome = () => (
+                <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 relative overflow-hidden">
+                    <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20 animate-blob"></div>
+                    <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+                    <div className="text-center z-10 mb-12">
+                        <div className="bg-white p-5 rounded-full inline-block shadow-lg mb-6"><BookOpen size={48} className="text-indigo-600" /></div>
+                        <h1 className="text-6xl font-black text-gray-800 tracking-tighter mb-4">Vocabulary</h1>
+                        <p className="text-xl text-gray-400 font-medium max-w-md">Practice and test your knowledge for Unit 5 and Unit 6.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 z-10 w-full max-w-5xl">
+                        {/* Unit 5 Section */}
+                        <div className="space-y-4">
+                            <button onClick={() => setCurrentPage('unit5')} className="w-full bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all border-b-8 border-indigo-100 hover:border-indigo-600 group">
+                                <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">📘</div>
+                                <h2 className="text-3xl font-bold text-gray-800">Unit 5 Cards</h2>
+                                <p className="text-gray-400 mt-2 font-medium">Study 20 new words</p>
+                            </button>
+                            <button onClick={() => setCurrentPage('quiz5')} className="w-full bg-indigo-50 rounded-2xl py-4 flex items-center justify-center space-x-3 text-indigo-600 font-black hover:bg-indigo-100 transition-colors">
+                                <Brain size={20} />
+                                <span>Take Unit 5 Quiz</span>
+                            </button>
+                        </div>
+
+                        {/* Unit 6 Section */}
+                        <div className="space-y-4">
+                            <button onClick={() => setCurrentPage('unit6')} className="w-full bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all border-b-8 border-pink-100 hover:border-pink-600 group">
+                                <div className="text-5xl mb-3 group-hover:scale-110 transition-transform">📙</div>
+                                <h2 className="text-3xl font-bold text-gray-800">Unit 6 Cards</h2>
+                                <p className="text-gray-400 mt-2 font-medium">Study 20 new words</p>
+                            </button>
+                            <button onClick={() => setCurrentPage('quiz6')} className="w-full bg-pink-50 rounded-2xl py-4 flex items-center justify-center space-x-3 text-pink-600 font-black hover:bg-pink-100 transition-colors">
+                                <Brain size={20} />
+                                <span>Take Unit 6 Quiz</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderUnitPage = (unitData, unitNum, title, colorClass) => (
+                <div className="min-h-screen bg-slate-50 pb-20">
+                    <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-200 p-4">
+                        <div className="max-w-7xl mx-auto flex items-center justify-between">
+                            <div className="flex items-center space-x-4">
+                                <button onClick={() => setCurrentPage('home')} className="p-2 bg-gray-100 rounded-lg text-gray-500 hover:bg-indigo-600 hover:text-white transition-all"><Home size={20} /></button>
+                                <h1 className={`text-2xl font-black ${colorClass === 'indigo' ? 'text-indigo-600' : 'text-pink-600'}`}>{title}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="max-w-7xl mx-auto px-4 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {unitData.map(item => (
+                            <div key={item.id} onClick={() => setExpandedCard({...item, unitNum})} className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all cursor-pointer relative overflow-hidden">
+                                <div className={`absolute top-0 left-0 w-full h-1.5 ${colorClass === 'indigo' ? 'bg-indigo-500' : 'bg-pink-500'}`}></div>
+                                <CardContent item={item} unitNumber={unitNum} playAudio={playAudio} />
+                            </div>
+                        ))}
+                    </div>
+                    {expandedCard && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={() => setExpandedCard(null)}>
+                            <div className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative" onClick={e => e.stopPropagation()}>
+                                <button onClick={() => setExpandedCard(null)} className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full text-gray-400 hover:bg-gray-200"><X size={20} /></button>
+                                <CardContent item={expandedCard} unitNumber={expandedCard.unitNum} playAudio={playAudio} />
+                                <p className="mt-8 text-center text-gray-300 text-xs font-bold uppercase tracking-widest">Click background to close</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+
+            return (
+                <React.Fragment>
+                    {currentPage === 'home' && renderHome()}
+                    {currentPage === 'unit5' && renderUnitPage(unit5Data, 5, "Unit 5 Words", "indigo")}
+                    {currentPage === 'unit6' && renderUnitPage(unit6Data, 6, "Unit 6 Words", "pink")}
+                    {currentPage === 'quiz5' && <QuizMode unitData={unit5Data} unitNum={5} onHome={() => setCurrentPage('home')} />}
+                    {currentPage === 'quiz6' && <QuizMode unitData={unit6Data} unitNum={6} onHome={() => setCurrentPage('home')} />}
+                </React.Fragment>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<VocabularyApp />);
+    </script>
+</body>
+</html>

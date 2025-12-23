@@ -1,0 +1,295 @@
+Create a modern, colorful, student-friendly Vocabulary App (web app) with 3 pages: Home, Unit 5, and Unit 6.
+1) Home Page
+•	Title: “Vocabulary Practice App”
+•	Two large, modern buttons (card-style, 3D look):
+1.	Unit 5 Words
+2.	Unit 6 Words
+•	Clicking a button opens the relevant unit page.
+2) Unit Pages (Unit 5 Page + Unit 6 Page)
+Each unit page should:
+•	Have a page title (e.g., “Unit 5 Words” / “Unit 6 Words”)
+•	Have a Home button at the top (or top-left) to return to the Home page
+•	Display the words in a grid of card-shaped tiles (responsive: 1 column on mobile, 2–3 columns on desktop)
+3) Word Cards (Very Important Layout)
+Each word should appear in a visually appealing 3D, modern, colorful card and must include:
+1.	Number + Word
+Example: “01. anecdote”
+2.	Emoji related to the meaning
+Show an emoji next to the word (example: anecdote → 🗣️ or 📖)
+3.	Speaker icon (Audio Pronunciation)
+•	Place a speaker icon 🔊 near the word
+•	When clicked, it should play an audio file stored in the same folder
+•	Audio filename must match the entry number format:
+o	Unit 5 word 1 = 501.mp3 / Unit 6 word 3 = 603.mp3
+•	On Unit 5 page, audio files are 501.mp3 to 520.mp3
+•	On Unit 6 page, audio files are also 601.mp3 to 620.mp3 (separate folder/page context is fine)
+•	Also the speaker icon should stop other sounds
+4.	Under the word, show content with clear headings:
+•	Meaning: (short, student-friendly definition)
+•	Example: (one example sentence)
+o	The entry word inside the sentence must be bold
+o	And the bold word should be in a different color
+•	Synonyms: (list format)
+•	Antonyms: (list format)
+4) Style Requirements
+•	Use a modern, 3D, colorful design
+•	Cards should have:
+o	soft shadows
+o	rounded corners
+o	subtle gradients
+o	hover animation (lift / glow)
+•	Use clear readable fonts and strong headings
+•	Make it feel like a premium learning app for students
+5) Content Generation Rules
+For each word:
+•	Generate:
+o	A suitable emoji
+o	A simple meaning
+o	One example sentence appropriate for school students
+o	3–5 synonyms
+o	2–4 antonyms (if possible; if a word has no direct antonyms, write “No direct antonym”)
+
+Unit 5
+________________________________________
+1. anecdote
+Meaning: a short and interesting story
+Example sentence: The teacher shared a funny anecdote from her childhood.
+Synonyms: story, tale
+Antonyms: —
+________________________________________
+2. consolidate
+Meaning: to bring together or combine
+Example sentence: The school decided to consolidate two classes.
+Synonyms: combine, unite
+Antonyms: separate, divide
+________________________________________
+3. counterfeit
+Meaning: fake or not real
+Example sentence: The police found counterfeit money.
+Synonyms: fake, imitation
+Antonyms: genuine, real
+________________________________________
+4. docile
+Meaning: easy to control or gentle
+Example sentence: The docile dog followed its owner quietly.
+Synonyms: gentle, obedient
+Antonyms: wild, stubborn
+________________________________________
+5. dominate
+Meaning: to control or rule
+Example sentence: The stronger team dominated the match.
+Synonyms: control, rule
+Antonyms: obey, submit
+________________________________________
+6. entreat
+Meaning: to beg or ask seriously
+Example sentence: She entreated her parents to let her go.
+Synonyms: beg, plead
+Antonyms: demand, refuse
+________________________________________
+7. fallible
+Meaning: capable of making mistakes
+Example sentence: All humans are fallible.
+Synonyms: imperfect, mistaken
+Antonyms: perfect, flawless
+________________________________________
+8. fickle
+Meaning: changing opinions often
+Example sentence: The weather here is fickle.
+Synonyms: changeable, unpredictable
+Antonyms: loyal, steady
+________________________________________
+9. fugitive
+Meaning: a person who is running away
+Example sentence: The police searched for the fugitive.
+Synonyms: runaway, escapee
+Antonyms: captive, prisoner
+________________________________________
+10. grimy
+Meaning: dirty or covered with dirt
+Example sentence: His hands were grimy after playing outside.
+Synonyms: dirty, filthy
+Antonyms: clean, spotless
+________________________________________
+11. iota
+Meaning: a very small amount
+Example sentence: There wasn’t an iota of truth in the rumor.
+Synonyms: bit, speck
+Antonyms: lot, plenty
+________________________________________
+12. maul
+Meaning: to attack roughly
+Example sentence: The dog mauled the pillow while playing.
+Synonyms: attack, tear
+Antonyms: protect, guard
+________________________________________
+13. potential
+Meaning: possible ability or chance
+Example sentence: She has the potential to become a leader.
+Synonyms: ability, possibility
+Antonyms: impossibility, weakness
+________________________________________
+14. radiant
+Meaning: shining or full of joy
+Example sentence: Her face looked radiant after winning.
+Synonyms: glowing, bright
+Antonyms: dull, gloomy
+________________________________________
+15. rural
+Meaning: relating to the countryside
+Example sentence: He lives in a rural village.
+Synonyms: countryside, farming
+Antonyms: urban, city
+________________________________________
+16. substantial
+Meaning: large or important
+Example sentence: The project needs a substantial effort.
+Synonyms: large, significant
+Antonyms: small, minor
+________________________________________
+17. tactful
+Meaning: careful not to hurt others’ feelings
+Example sentence: She gave tactful advice to her friend.
+Synonyms: polite, considerate
+Antonyms: rude, blunt
+________________________________________
+18. tamper
+Meaning: to interfere in a harmful way
+Example sentence: Do not tamper with school equipment.
+Synonyms: interfere, meddle
+Antonyms: protect, preserve
+________________________________________
+19. ultimate
+Meaning: final or most important
+Example sentence: His ultimate goal is success.
+Synonyms: final, main
+Antonyms: first, initial
+________________________________________
+20. uncertainty
+Meaning: doubt or not being sure
+Example sentence: There was uncertainty about the exam date.
+Synonyms: doubt, confusion
+Antonyms: certainty, confidence
+
+Unit 6
+________________________________________
+1. anonymous
+Meaning: without a known name
+Example sentence: The letter was sent by an anonymous writer.
+Synonyms: unnamed, unknown
+Antonyms: known, identified
+________________________________________
+2. browse
+Meaning: to look through casually
+Example sentence: She likes to browse books in the library.
+Synonyms: look through, skim
+Antonyms: study, examine
+________________________________________
+3. dupe
+Meaning: to trick or fool
+Example sentence: He was duped into believing the lie.
+Synonyms: trick, deceive
+Antonyms: inform, enlighten
+________________________________________
+4. dynamic
+Meaning: full of energy and activity
+Example sentence: The coach is very dynamic and motivating.
+Synonyms: energetic, active
+Antonyms: lazy, dull
+________________________________________
+5. eradicate
+Meaning: to remove completely
+Example sentence: The program helped eradicate the disease.
+Synonyms: remove, destroy
+Antonyms: create, spread
+________________________________________
+6. frustrate
+Meaning: to make someone feel upset or annoyed
+Example sentence: The broken printer began to frustrate students.
+Synonyms: annoy, upset
+Antonyms: please, satisfy
+________________________________________
+7. grim
+Meaning: serious or unpleasant
+Example sentence: The news about the storm was grim.
+Synonyms: serious, harsh
+Antonyms: cheerful, pleasant
+________________________________________
+8. inimitable
+Meaning: impossible to copy
+Example sentence: Her singing style is inimitable.
+Synonyms: unique, unmatched
+Antonyms: ordinary, common
+________________________________________
+9. makeshift
+Meaning: temporary and not perfect
+Example sentence: They used a makeshift table during the event.
+Synonyms: temporary, improvised
+Antonyms: permanent, proper
+________________________________________
+10. marginal
+Meaning: small or not very important
+Example sentence: The team won by a marginal difference.
+Synonyms: slight, minor
+Antonyms: major, significant
+________________________________________
+11. pending
+Meaning: waiting to be decided
+Example sentence: The result is still pending.
+Synonyms: waiting, undecided
+Antonyms: decided, finished
+________________________________________
+12. prescribe
+Meaning: to order or recommend medicine
+Example sentence: The doctor prescribed rest and medicine.
+Synonyms: recommend, order
+Antonyms: forbid, cancel
+________________________________________
+13. preview
+Meaning: to see something before it happens
+Example sentence: We watched a preview of the movie.
+Synonyms: glimpse, preview
+Antonyms: review, recap
+________________________________________
+14. prominent
+Meaning: easily noticed or important
+Example sentence: He is a prominent member of the team.
+Synonyms: noticeable, important
+Antonyms: unimportant, hidden
+________________________________________
+15. quaint
+Meaning: attractively old-fashioned
+Example sentence: The village has quaint houses.
+Synonyms: charming, old-fashioned
+Antonyms: modern, plain
+________________________________________
+16. reluctant
+Meaning: unwilling or hesitant
+Example sentence: She was reluctant to speak in public.
+Synonyms: hesitant, unwilling
+Antonyms: eager, willing
+________________________________________
+17. scrimp
+Meaning: to save money by spending very little
+Example sentence: He scrimped to buy a new bicycle.
+Synonyms: save, economize
+Antonyms: waste, spend freely
+________________________________________
+18. snare
+Meaning: a trap
+Example sentence: The hunter set a snare in the forest.
+Synonyms: trap, net
+Antonyms: release, free
+________________________________________
+19. utmost
+Meaning: greatest or highest
+Example sentence: She tried her utmost to succeed.
+Synonyms: greatest, maximum
+Antonyms: least, minimum
+________________________________________
+20. vengeance
+Meaning: revenge for a wrong done
+Example sentence: He wanted vengeance after being treated unfairly.
+Synonyms: revenge, payback
+Antonyms: forgiveness, mercy
+
